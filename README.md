@@ -1,1 +1,5 @@
-# stroll
+# Stroll
+
+## License
+
+[MIT](./LICENSE)
