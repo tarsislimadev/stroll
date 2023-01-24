@@ -2,14 +2,34 @@ version: '3'
 
 services:
 
-  github-release:
-    image: 'github-release'
-    build: './src'
-
   www:
-    image: 'tmvdl/projects:stroll'
+    image: 'tmvdl/stroll:www'
     build: './src/www'
     volumes:
       - './src/www/html:/usr/share/nginx/html'
     ports:
       - '80:80'
+
+  io:
+    image: 'tmvdl/stroll:io'
+    build: './src/io'
+    volumes:
+      - './src/io:/app'
+    ports:
+      - '8080:80'
+
+  app:
+    image: 'tmvdl/stroll:app'
+    build: './src/app'
+    volumes:
+      - './src/app:/app'
+    ports:
+      - '8000:80'
+
+  net:
+    image: 'tmvdl/stroll:net'
+    build: './src/net'
+    volumes:
+      - './src/net:/app'
+    ports:
+      - '8888:80'
