@@ -1,4 +1,19 @@
 
+class Flow {
+  static goTo(location, params = {}) {
+    localStorage.setItem(
+      ['flow', location].join('.'),
+      JSON.stringify(params)
+    )
+      ;;
+    (function () { window.location = location; })()
+  }
+
+  static fromTo(location) {
+    return JSON.parse(localStorage.getItem(['flow', location].join('.')))
+  }
+}
+
 class nElement {
   container = document.createElement('div')
   element = document.createElement('div')
@@ -11,7 +26,7 @@ class nElement {
       tagName: 'div',
     },
     component: {
-      name: 'bug',
+      name: 'component',
     }
   }
 
@@ -252,6 +267,16 @@ class Valuable extends nElement {
 
   setValue(value) {
     this.element.value = value
+    return this
+  }
+
+  placeholder(value) {
+    this.element.placeholder = value
+    return this
+  }
+
+  clear() {
+    this.setValue('')
     return this
   }
 
