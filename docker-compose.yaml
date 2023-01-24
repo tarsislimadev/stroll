@@ -17,3 +17,7 @@ services:
       - './src/io:/app'
     ports:
       - '8080:80'
+
+  github-release:
+    image: 'github-release'
+    build: './src'
