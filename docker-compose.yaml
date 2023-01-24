@@ -17,19 +17,3 @@ services:
       - './src/io:/app'
     ports:
       - '8080:80'
-
-  app:
-    image: 'tmvdl/stroll:app'
-    build: './src/app'
-    volumes:
-      - './src/app:/app'
-    ports:
-      - '8000:80'
-
-  net:
-    image: 'tmvdl/stroll:net'
-    build: './src/net'
-    volumes:
-      - './src/net:/app'
-    ports:
-      - '8888:80'
