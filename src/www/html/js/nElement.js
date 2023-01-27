@@ -116,6 +116,16 @@ class nElement {
     return this
   }
 
+  onContainer(name, value) {
+    this.container.addEventListener(name, value.bind(this))
+    return this
+  }
+
+  onceContainer(name, value) {
+    this.container.addEventListener(name, value.bind(this), { once: true })
+    return this
+  }
+
   setData(name, value) {
     this.element.dataset[name] = value
     return this
