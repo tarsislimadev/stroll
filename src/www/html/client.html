@@ -18,12 +18,7 @@
 
     const socket = new WebSocket('ws://' + address)
 
-    socket.addEventListener('open', () => {
-      socket.send(JSON.stringify({
-        type: 'hello from client',
-        content: [3, '4']
-      }))
-    })
+    socket.addEventListener('open', () => socket.send('open'))
 
     socket.addEventListener('message', ({ data }) => {
       const packet = JSON.parse(data)
@@ -33,6 +28,73 @@
           break
       }
     })
+
+    const app = nElement.fromId('app')
+
+    const client = new nFlex()
+    app.append(client)
+
+    const buttons = new nElement()
+    buttons.setStyle('width', '50%')
+    client.append(buttons)
+
+    const addButton = ({
+      text = '',
+      color = '',
+    }) => {
+      const button = new nElement()
+
+      button.setContainerStyle('display', 'inline-block')
+
+      button.setStyle('box-shadow', '0rem 0rem 0rem calc(1rem / 8) black')
+      button.setStyle('background-color', color)
+      button.setStyle('display', 'inline-block')
+      button.setStyle('border-radius', '50%')
+      button.setStyle('text-align', 'center')
+      button.setStyle('padding', '1rem')
+      button.setStyle('height', '3rem')
+      button.setStyle('margin', 'calc(1rem / 4)')
+      button.setStyle('width', '3rem')
+
+      button.on('click', () => socket.send('button' + text))
+
+      button.setText(text)
+      buttons.append(button)
+    }
+
+    addButton({ text: 'Y', color: '#ffff00' })
+    addButton({ text: 'O', color: '#ff9900' })
+    addButton({ text: 'G', color: '#00ff00' })
+    addButton({ text: 'W', color: '#ffffff' })
+    addButton({ text: 'R', color: '#ff0000' })
+    addButton({ text: 'B', color: '#0000ff' })
+
+    const joystick = new nElement()
+    joystick.setStyle('background-color', '#666666')
+    joystick.setStyle('display', 'inline-block')
+    joystick.setStyle('border-radius', '50%')
+    joystick.setStyle('margin', '30vh 10vh')
+    joystick.setStyle('padding', '7.5vh')
+    joystick.setStyle('height', '30vh')
+    joystick.setStyle('width', '30vh')
+    client.append(joystick)
+
+    const joystickButton = new nElement()
+    joystickButton.setContainerStyle('border-radius', '50%')
+    joystickButton.setContainerStyle('background-color', '#cccccc')
+    joystickButton.setContainerStyle('height', '15vh')
+    joystickButton.setContainerStyle('width', '15vh')
+
+    const joystickPosition = {}
+
+    joystickButton.onContainer('mousemove', console.log)
+    joystickButton.onContainer('mousedown', console.log)
+    joystickButton.onContainer('mouseup', console.log)
+    joystickButton.onContainer('touchstart', console.log)
+    joystickButton.onContainer('touchend', console.log)
+
+    joystick.append(joystickButton)
+
   </script>
 
 </body>
