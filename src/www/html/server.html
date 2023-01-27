@@ -38,23 +38,17 @@
     const socket = new WebSocket('ws://' + address)
 
     const moveAction = ({ x, y }) => {
-      const squareX = +square.getStyle('left').substring(0, 1)
       const squareY = +square.getStyle('top').substring(0, 1)
+      square.setStyle('top', (squareY + (y / 100)) + 'rem')
 
-      const moveX = x / 100
-      const moveY = y / 100
-
-      square.setStyle('left', (squareX + moveX) + 'rem')
-      square.setStyle('top', (squareY + moveY) + 'rem')
+      const squareX = +square.getStyle('left').substring(0, 1)
+      square.setStyle('left', (squareX + (x / 100)) + 'rem')
     }
 
-    const buttonAction = (button) => {
-      square.setStyle('background-color', button)
-    }
+    const buttonAction = (button) => square.setStyle('background-color', button)
 
     socket.addEventListener('message', ({ data }) => {
-      const { type, text = '' } = (JSON.parse(data))
-      console.log({ type, text })
+      const { type, text = '' } = JSON.parse(data)
 
       switch (type) {
         case 'move': return moveAction(text);
