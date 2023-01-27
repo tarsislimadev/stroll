@@ -19,7 +19,7 @@ jobs:
       #   run: docker-compose build github-release
 
       - name: Docker build
-        run: docker-compose run github-release cp -rfv 	/app/stroll/platforms/android/app/build/outputs/apk/debug/app-debug.apk /dist
+        run: docker-compose run github-release find -name '*apk'
 
       - name: Create release
         run: gh release create v$( date +%Y%m%d%H%M ) ./dist/*.apk
