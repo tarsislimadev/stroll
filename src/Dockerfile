@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN cordova create stroll com.brtmvdl stroll
 
-WORKDIR /app stroll
+WORKDIR /app/stroll
 
 COPY www/html www
 
