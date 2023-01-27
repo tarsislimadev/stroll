@@ -18,16 +18,14 @@
 
     const socket = new WebSocket('ws://' + address)
 
-    socket.addEventListener('open', () => socket.send('open'))
+    socket.name = ''
 
-    socket.addEventListener('message', ({ data }) => {
-      const packet = JSON.parse(data)
+    const send = (type, text) => [
+      socket.send(JSON.stringify({ type, text })),
+      console.log({ type, text }),
+    ]
 
-      switch (packet.type) {
-        case 'hello from server':
-          break
-      }
-    })
+    // Application
 
     const app = nElement.fromId('app')
 
@@ -38,10 +36,7 @@
     buttons.setStyle('width', '50%')
     client.append(buttons)
 
-    const addButton = ({
-      text = '',
-      color = '',
-    }) => {
+    const addButton = (color) => {
       const button = new nElement()
 
       button.setContainerStyle('display', 'inline-block')
@@ -56,18 +51,18 @@
       button.setStyle('margin', 'calc(1rem / 4)')
       button.setStyle('width', '3rem')
 
-      button.on('click', () => socket.send('button' + text))
+      button.on('click', () => send('button', color))
 
-      button.setText(text)
+      button.setText(color.substring(0, 1).toUpperCase())
       buttons.append(button)
     }
 
-    addButton({ text: 'Y', color: '#ffff00' })
-    addButton({ text: 'O', color: '#ff9900' })
-    addButton({ text: 'G', color: '#00ff00' })
-    addButton({ text: 'W', color: '#ffffff' })
-    addButton({ text: 'R', color: '#ff0000' })
-    addButton({ text: 'B', color: '#0000ff' })
+    addButton('yellow')
+    addButton('green')
+    addButton('orange')
+    addButton('white')
+    addButton('blue')
+    addButton('red')
 
     const joystick = new nElement()
     joystick.setStyle('background-color', '#666666')
@@ -85,13 +80,23 @@
     joystickButton.setContainerStyle('height', '15vh')
     joystickButton.setContainerStyle('width', '15vh')
 
-    const joystickPosition = {}
+    const joystickPositions = { clientX: 0, clientY: 0 }
 
-    joystickButton.onContainer('mousemove', console.log)
-    joystickButton.onContainer('mousedown', console.log)
-    joystickButton.onContainer('mouseup', console.log)
-    joystickButton.onContainer('touchstart', console.log)
-    joystickButton.onContainer('touchend', console.log)
+    joystickButton.onContainer('touchstart', (ev) => {
+      const { clientX, clientY } = ev.changedTouches.item(0)
+      joystickPositions.clientX = clientX
+      joystickPositions.clientY = clientY
+    })
+
+    joystickButton.onContainer('touchend', ({ changedTouches }) => {
+      const { clientX, clientY } = changedTouches.item(0)
+      const [x, y] = [
+        clientX - joystickPositions.clientX,
+        clientY - joystickPositions.clientY,
+      ]
+
+      send('move', { x, y })
+    })
 
     joystick.append(joystickButton)
 
