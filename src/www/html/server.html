@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="./js/nElement.js"></script>
+  <script src="./js/api.js"></script>
+  <script>
+    const app = nElement.fromId('app')
+    app.setStyle('display', 'inline-block')
+    app.setStyle('height', '100vh')
+    app.setStyle('width', '100vw')
+
+    const square = new nElement()
+
+    square.setStyle('display', 'inline-block')
+    square.setStyle('position', 'relative')
+    square.setStyle('padding', '1rem')
+    square.setStyle('height', '2rem')
+    square.setStyle('width', '2rem')
+
+    square.setStyle('background-color', '#000000')
+    square.setStyle('left', '0rem')
+    square.setStyle('top', '0rem')
+
+    app.append(square)
+
+    const { address = '0.0.0.0:8080' } = Flow.fromTo('client.html')
+
+    const socket = new WebSocket('ws://' + address)
+
+    const moveAction = ({ x, y }) => {
+      const squareX = +square.getStyle('left').substring(0, 1)
+      const squareY = +square.getStyle('top').substring(0, 1)
+
+      const moveX = x / 100
+      const moveY = y / 100
+
+      square.setStyle('left', (squareX + moveX) + 'rem')
+      square.setStyle('top', (squareY + moveY) + 'rem')
+    }
+
+    const buttonAction = (button) => {
+      square.setStyle('background-color', button)
+    }
+
+    socket.addEventListener('message', ({ data }) => {
+      const { type, text = '' } = (JSON.parse(data))
+      console.log({ type, text })
+
+      switch (type) {
+        case 'move': return moveAction(text);
+        case 'button': return buttonAction(text);
+      }
+    })
+
+  </script>
+
+</body>
+
+</html>
