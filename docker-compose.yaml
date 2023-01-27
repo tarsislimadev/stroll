@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   www:
     image: 'tmvdl/stroll:www'
     build: './src/www'
@@ -9,7 +8,6 @@ services:
       - './src/www/html:/usr/share/nginx/html'
     ports:
       - '80:80'
-
   io:
     image: 'tmvdl/stroll:io'
     build: './src/io'
@@ -17,7 +15,9 @@ services:
       - './src/io:/app'
     ports:
       - '8080:80'
-
   github-release:
     image: 'github-release'
     build: './src'
+    volumes:
+      - './src:/app'
+      - './dist:/dist'
