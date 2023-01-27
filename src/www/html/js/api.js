@@ -56,34 +56,6 @@ Base.update = (name, id, data) => Base.select(name)
     .then((list) => list.map((item) => item['_id'] === id ? data : item))
     .then((list) => localStorage.setItem(['base', name].join('.'), JSON.stringify(list)))
     .then(() => ({ status: 'ok' }))
-  
-class FormConstructor {
-  fields = []
-
-  with(fields = {}) {
-    this.fields = this.fields
-      .concat(Object.keys(fields).map((key) => ({ key, value: fields[key] })))
-
-    return this
-  }
-
-  validate(vlds) {
-    return new Promise((s, _) => s()) // FIXME
-  }
-}
-
-const Forms = new FormConstructor
-
-class FlowConstructor {
-
-  goTo(name) {
-    if (!name) throw new Error('Page error')
-    window.location = name
-  }
-
-}
-
-const Flow = new FlowConstructor
 
 const Validations = {
   required: (value, errorMessage = 'Required field.') => !value ? errorMessage : 'Required',
