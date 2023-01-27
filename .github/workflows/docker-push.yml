@@ -12,15 +12,12 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
-      - name: Docker Login
+      - name: Docker login
         uses: docker/login-action@v1 
         with:
           username: tmvdl
           password: ${{ secrets.GITHUBDOCKER }}
-
       - name: Docker build
-        run: docker-compose build www
-
+        run: docker-compose build
       - name: Docker push
         run: docker push tmvdl/stroll -a
