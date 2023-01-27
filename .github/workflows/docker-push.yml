@@ -18,6 +18,6 @@ jobs:
           username: tmvdl
           password: ${{ secrets.GITHUBDOCKER }}
       - name: Docker build
-        run: docker-compose build
+        run: docker-compose build www io
       - name: Docker push
         run: docker push tmvdl/stroll -a
