@@ -20,6 +20,10 @@
     title.setText('Stroll')
     app.append(title)
 
+    const label = new nLabel()
+    label.setText('Server Address')
+    app.append(label)
+
     const input = new nInputText()
     input.setValue('0.0.0.0:8080')
     input.placeholder('Server address')
@@ -29,10 +33,11 @@
     const error = new nError()
     app.append(error)
 
-    const menu = new nElement()
+    const menu = new nFlex()
 
     const addMenuButton = (title, href) => {
       const button = new nButton()
+      button.addContainerClass('screen-button')
 
       button.setText(title)
       button.on('click', () => {
@@ -50,8 +55,8 @@
       menu.append(button)
     }
 
-    addMenuButton('Client', 'client.html')
     addMenuButton('Server', 'server.html')
+    addMenuButton('Client', 'client.html')
 
     app.append(menu)
   </script>
