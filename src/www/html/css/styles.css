@@ -1,0 +1,74 @@
+html,
+body,
+div {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+}
+
+.app {
+  height: 100vw;
+  width: 100vw;
+}
+
+.square {
+  background-color: black;
+  padding: calc(1rem / 1);
+  position: relative;
+  height: calc(1rem / 1);
+  width: calc(1rem / 1);
+  left: calc(0rem / 1);
+  top: calc(0rem / 1);
+}
+
+.buttons {
+  width: 50vw;
+}
+
+.buttons > .el-component {
+  margin: 12vw 1vw;
+}
+
+.button {
+  border-radius: 50%;
+
+  line-height: 12vw;
+  font-size: 5vw;
+  height: 12vw;
+  width: 12vw;
+
+  border: none;
+  outline: none;
+
+  box-shadow: black 0rem 0rem 0rem calc(1rem / 8);
+  box-sizing: border-box;
+  text-align: center;
+
+  margin: 2vw;
+}
+
+.joystick {
+  background-color: #666666;
+  border-radius: 50%;
+  height: 40vw;
+  margin: 5vw;
+  width: 40vw;
+}
+
+.joystick > .el-component {
+  height: 40vw;
+  line-height: 40vw;
+  width: 40vw;
+}
+
+.joystickButton {
+  background-color: #cccccc;
+  border-radius: 50%;
+  position: relative;
+  height: 15vw;
+  width: 15vw;
+  left: 12vw;
+  top: 12vw;
+}
