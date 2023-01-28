@@ -14,13 +14,14 @@ div {
 }
 
 .square {
-  background-color: black;
-  padding: calc(1rem / 1);
+  background-color: #000000;
+  display: inline-block;
   position: relative;
-  height: calc(1rem / 1);
-  width: calc(1rem / 1);
-  left: calc(0rem / 1);
-  top: calc(0rem / 1);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  left: 0px;
+  top: 0px;
 }
 
 .buttons {
