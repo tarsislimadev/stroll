@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/styles.css">
   <title></title>
 </head>
 
@@ -15,22 +16,9 @@
   <script src="./js/api.js"></script>
   <script>
     const app = nElement.fromId('app')
-    app.setStyle('display', 'inline-block')
-    app.setStyle('height', '100vh')
-    app.setStyle('width', '100vw')
+    app.addContainerClass('app')
 
-    const square = new nElement()
-
-    square.setStyle('display', 'inline-block')
-    square.setStyle('position', 'relative')
-    square.setStyle('padding', '1rem')
-    square.setStyle('height', '2rem')
-    square.setStyle('width', '2rem')
-
-    square.setStyle('background-color', '#000000')
-    square.setStyle('left', '0rem')
-    square.setStyle('top', '0rem')
-
+    const square = new nElement().addClass('square')
     app.append(square)
 
     const { address = '0.0.0.0:8080' } = Flow.fromTo('client.html')
@@ -38,11 +26,15 @@
     const socket = new WebSocket('ws://' + address)
 
     const moveAction = ({ x, y }) => {
-      const squareY = +square.getStyle('top').substring(0, 1)
-      square.setStyle('top', (squareY + (y / 100)) + 'rem')
+      const squareY = +square.getStyle('top').replace('px', '')
+      const top = (squareY + (y / 10)) + 'px'
+      square.setStyle('top', top)
 
-      const squareX = +square.getStyle('left').substring(0, 1)
-      square.setStyle('left', (squareX + (x / 100)) + 'rem')
+      const squareX = +square.getStyle('left').replace('px', '')
+      const left = (squareX + (x / 10)) + 'px'
+      square.setStyle('left', left)
+
+      console.log({ top, left })
     }
 
     const buttonAction = (button) => square.setStyle('background-color', button)
