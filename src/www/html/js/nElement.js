@@ -53,11 +53,6 @@ class nElement {
       this.container.classList.add(`ct-${this.options.component.name}`)
     }
 
-    this.setStyle('margin', '0')
-    this.setStyle('padding', '0')
-    this.setStyle('outline', 'none')
-    this.setStyle('border', 'none')
-    this.setStyle('box-sizing', 'border-box')
   }
 
   static fromElement(el = document.createElement('')) {
@@ -151,6 +146,16 @@ class nElement {
   render() {
     this.container.append(this.element)
     return this.container
+  }
+
+  addContainerClass(value) {
+    this.container.classList.add(value)
+    return this
+  }
+
+  addClass(value) {
+    this.element.classList.add(value)
+    return this
   }
 }
 
