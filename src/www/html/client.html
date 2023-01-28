@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/styles.css">
   <title></title>
 </head>
 
@@ -25,32 +26,21 @@
       console.log({ type, text }),
     ]
 
-    // Application
-
     const app = nElement.fromId('app')
+    app.addContainerClass('app')
 
     const client = new nFlex()
     app.append(client)
 
     const buttons = new nElement()
-    buttons.setStyle('width', '50%')
+    buttons.addContainerClass('buttons')
     client.append(buttons)
 
     const addButton = (color) => {
       const button = new nElement()
+      button.addContainerClass('button')
 
-      button.setContainerStyle('display', 'inline-block')
-
-      button.setStyle('box-shadow', '0rem 0rem 0rem calc(1rem / 8) black')
-      button.setStyle('background-color', color)
-      button.setStyle('display', 'inline-block')
-      button.setStyle('border-radius', '50%')
-      button.setStyle('text-align', 'center')
-      button.setStyle('padding', '1rem')
-      button.setStyle('height', '3rem')
-      button.setStyle('margin', 'calc(1rem / 4)')
-      button.setStyle('width', '3rem')
-
+      button.setContainerStyle('background-color', color)
       button.on('click', () => send('button', color))
 
       button.setText(color.substring(0, 1).toUpperCase())
@@ -65,20 +55,11 @@
     addButton('red')
 
     const joystick = new nElement()
-    joystick.setStyle('background-color', '#666666')
-    joystick.setStyle('display', 'inline-block')
-    joystick.setStyle('border-radius', '50%')
-    joystick.setStyle('margin', '30vh 10vh')
-    joystick.setStyle('padding', '7.5vh')
-    joystick.setStyle('height', '30vh')
-    joystick.setStyle('width', '30vh')
+    joystick.addContainerClass('joystick')
     client.append(joystick)
 
     const joystickButton = new nElement()
-    joystickButton.setContainerStyle('border-radius', '50%')
-    joystickButton.setContainerStyle('background-color', '#cccccc')
-    joystickButton.setContainerStyle('height', '15vh')
-    joystickButton.setContainerStyle('width', '15vh')
+    joystickButton.addContainerClass('joystickButton')
 
     const joystickPositions = { clientX: 0, clientY: 0 }
 
