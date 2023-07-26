@@ -1,4 +1,6 @@
-FROM tmvdl/android:app
+FROM tmvdl/android:alpine
+
+# FROM tmvdl/android:app
 
 WORKDIR /app
 
