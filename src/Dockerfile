@@ -1,7 +1,5 @@
 FROM tmvdl/android:alpine
 
-# FROM tmvdl/android:app
-
 WORKDIR /app
 
 RUN cordova create stroll com.brtmvdl.stroll stroll
